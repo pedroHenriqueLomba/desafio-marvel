@@ -20,7 +20,7 @@ export class PopulateDbController {
     try {
       // await this.saveCharacters(); // Uncomment this line to populate the database with characters
       // await this.saveComics(); // Uncomment this line to populate the database with comics
-      await this.saveCreators(); // Uncomment this line to populate the database with creators
+      // await this.saveCreators(); // Uncomment this line to populate the database with creators
       res.status(200).send('Database populated');
     } catch (error) {
       console.error("Error populating database:", error);
@@ -108,7 +108,7 @@ export class PopulateDbController {
 
   private async saveCreators() {
     const creators = await this.getCreators();
-    // this.insertCreators(creators);
+    this.insertCreators(creators);
   }
 
   private async getCreators() {
@@ -142,7 +142,11 @@ export class PopulateDbController {
         }),
       };
     });
-    console.log(creatorsData[0]);
+    return creatorsData;
+  }
+
+  private async insertCreators(creators: any) {
+    await this.populateDbService.insertCreators(creators);
   }
 
 }
