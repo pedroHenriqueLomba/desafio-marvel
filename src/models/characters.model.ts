@@ -3,8 +3,6 @@ import mongoose, { model } from "mongoose";
 const CharacterSchema = new mongoose.Schema({
   marvel_id: {
     type: Number,
-    required: true,
-    unique: true,
   },
   name: {
     type: String,
