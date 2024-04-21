@@ -62,4 +62,12 @@ export default class ComicService {
     }
     await this.model.deleteOne({ _id: id });
   }
+
+  async findByTitle(title: string): Promise<ComicDocument> {
+    const comic = await this.model.findOne({ title });
+    if (!comic) {
+      throw new RestError("Comic not found", RestErrorCodes.NOT_FOUND);
+    }
+    return comic.toObject();
+  }
 }

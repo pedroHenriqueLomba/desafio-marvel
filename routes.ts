@@ -10,6 +10,7 @@ import { ComicUpdateDto } from "./src/dtos/comics/comic-update.dto";
 import CreatorController from "./src/controllers/creator.controller";
 import { CreatorCreateDto } from "./src/dtos/creators/creator-create.dto";
 import { CreatorUpdateDto } from "./src/dtos/creators/creator-update.dto";
+import { AditionalRoutesController } from "./src/controllers/aditional-routes.controller";
 
 const routes = Router();
 
@@ -39,5 +40,8 @@ routes.get("/creators", new CreatorController().list);
 routes.get("/creators/:id", new CreatorController().findById);
 routes.put("/creators/:id", CreatorUpdateDto, new CreatorController().update);
 routes.delete("/creators/:id", new CreatorController().delete);
+
+// Aditional routes
+routes.get("/comics/:title/creators", new AditionalRoutesController().findCreatorByTitleComic);
 
 export { routes };

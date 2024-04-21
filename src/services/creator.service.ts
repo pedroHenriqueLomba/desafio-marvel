@@ -62,4 +62,12 @@ export default class CreatorService {
       await this.model.deleteOne({ _id: id });
     }
   }
+
+  async findByFullName(fullName: string): Promise<CreatorDocument> {
+    const creator = await this.model.findOne({ fullName });
+    if (!creator) {
+      throw new RestError("Creator not found", RestErrorCodes.NOT_FOUND);
+    }
+    return creator.toObject();
+  }
 }
