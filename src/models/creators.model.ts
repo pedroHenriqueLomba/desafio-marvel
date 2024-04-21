@@ -1,7 +1,7 @@
 import mongoose, { model } from "mongoose";
 
 const CreatorsSchema = new mongoose.Schema({
-  marvel_id: { type: Number, required: true },
+  marvel_id: { type: Number },
   firstName: { type: String },
   middleName: { type: String },
   lastName: { type: String },
@@ -14,8 +14,8 @@ const CreatorsSchema = new mongoose.Schema({
   series: [{ type: String }],
   stories: [
     {
-      name: {type: String},
-      type: {type: String},
+      name: { type: String },
+      type: { type: String },
     },
   ],
   comics: [{ type: String }],

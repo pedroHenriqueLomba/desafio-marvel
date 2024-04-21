@@ -18,9 +18,9 @@ export class PopulateDbController {
 
   async populate(req: any, res: any) {
     try {
-      // await this.saveCharacters(); // Uncomment this line to populate the database with characters
-      // await this.saveComics(); // Uncomment this line to populate the database with comics
-      // await this.saveCreators(); // Uncomment this line to populate the database with creators
+      await this.saveCharacters(); // Uncomment this line to populate the database with characters
+      await this.saveComics(); // Uncomment this line to populate the database with comics
+      await this.saveCreators(); // Uncomment this line to populate the database with creators
       res.status(200).send('Database populated');
     } catch (error) {
       console.error("Error populating database:", error);

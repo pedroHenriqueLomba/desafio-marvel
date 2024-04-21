@@ -48,20 +48,3 @@ export class Creator {
     });
   }
 }
-
-// {
-//     marvel_id: { type: Number, required: true },
-//     firstName: { type: String },
-//     middleName: { type: String },
-//     lastName: { type: String },
-//     suffix: { type: String },
-//     fullName: { type: String },
-//     modified: { type: Date },
-//     resourceURI: { type: String },
-//     urls: [{ type: String }], // Array de URLs
-//     thumbnail: { type: String },
-//     series: [{ name: String }],
-//     stories: [{ name: String, type: String }],
-//     comics: [{ name: String }],
-//     events: [{ name: String }],
-//   }

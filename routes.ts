@@ -18,5 +18,6 @@ routes.post("/characters", CreateCharacterDto, new CharacterController().create)
 routes.get("/characters", new CharacterController().list);
 routes.get("/characters/:id", new CharacterController().findById);
 routes.put("/characters/:id", UpdateCharacterDto, new CharacterController().update);
+routes.delete("/characters/:id", new CharacterController().delete);
 
 export { routes };

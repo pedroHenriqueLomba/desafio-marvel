@@ -11,6 +11,7 @@ export default class CharacterController {
     this.list = this.list.bind(this);
     this.findById = this.findById.bind(this);
     this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   async create(req: any, res: any) {
@@ -51,6 +52,17 @@ export default class CharacterController {
     try {
       const character = await this.service.update(req.params.id, req.body);
       res.status(200).send(character);
+    } catch (error: any) {
+      const message = error.message ? error.message : "Error";
+      const code = error.code ? error.code : 400;
+      res.status(code).send(message);
+    }
+  }
+
+  async delete(req: any, res: any) {
+    try {
+      await this.service.delete(req.params.id);
+      res.status(204).send();
     } catch (error: any) {
       const message = error.message ? error.message : "Error";
       const code = error.code ? error.code : 400;

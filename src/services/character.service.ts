@@ -39,7 +39,10 @@ export default class CharacterService {
     return character.toObject();
   }
 
-  async update(id: string, characterData: Character): Promise<CharacterDocument> {
+  async update(
+    id: string,
+    characterData: Character
+  ): Promise<CharacterDocument> {
     const character = await this.model.findById(id);
     if (!character) {
       throw new RestError("Character not found", 404);
@@ -47,5 +50,17 @@ export default class CharacterService {
     character.set(characterData);
     await character.save();
     return character.toObject();
+  }
+
+  async delete(id: string): Promise<void> {
+    const character = await this.model.findById(id);
+    if (!character) {
+      throw new RestError("Character not found", 404);
+    }
+    if (!character.marvel_id) {
+      await this.model.deleteOne({ _id: id });
+    } else {
+      throw new RestError("Character cannot be deleted because it is Original", 400);
+    }
   }
 }

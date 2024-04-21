@@ -1,7 +1,7 @@
 import mongoose, { model } from "mongoose";
 
 const ComicsSchema = new mongoose.Schema({
-  marvel_id: { type: Number, required: true },
+  marvel_id: { type: Number },
   title: { type: String, required: true },
   issueNumber: { type: Number },
   description: { type: String },
