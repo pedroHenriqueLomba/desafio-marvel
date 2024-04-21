@@ -1,4 +1,4 @@
-import { RestError } from "./rest-error";
+import { RestError, RestErrorCodes } from "./rest-error";
 
 export class Paginate<T> {
   public data: T[];
@@ -27,7 +27,10 @@ export class PaginateOptions<T> {
       this.page = Number(page);
       this.filters = JSON.parse(filters) as T;
     } catch (error) {
-      throw new RestError("Invalid paginate options");
+      throw new RestError(
+        "Invalid paginate options",
+        RestErrorCodes.BAD_REQUEST
+      );
     }
   }
 }

@@ -2,7 +2,7 @@ import { CharacterFiltersDto } from "../dtos/characters/character-filter.dto";
 import charactersModel from "../models/characters.model";
 import { Character, CharacterDocument } from "../types/character.type";
 import { Paginate, PaginateOptions } from "../util/paginate";
-import { RestError } from "../util/rest-error";
+import { RestError, RestErrorCodes } from "../util/rest-error";
 
 export default class CharacterService {
   private model = charactersModel;
@@ -34,7 +34,7 @@ export default class CharacterService {
   async findById(id: string): Promise<CharacterDocument> {
     const character = await this.model.findById(id);
     if (!character) {
-      throw new RestError("Character not found", 404);
+      throw new RestError("Character not found", RestErrorCodes.NOT_FOUND);
     }
     return character.toObject();
   }
@@ -45,7 +45,7 @@ export default class CharacterService {
   ): Promise<CharacterDocument> {
     const character = await this.model.findById(id);
     if (!character) {
-      throw new RestError("Character not found", 404);
+      throw new RestError("Character not found", RestErrorCodes.NOT_FOUND);
     }
     character.set(characterData);
     await character.save();
@@ -55,12 +55,14 @@ export default class CharacterService {
   async delete(id: string): Promise<void> {
     const character = await this.model.findById(id);
     if (!character) {
-      throw new RestError("Character not found", 404);
+      throw new RestError("Character not found", RestErrorCodes.NOT_FOUND);
     }
-    if (!character.marvel_id) {
-      await this.model.deleteOne({ _id: id });
-    } else {
-      throw new RestError("Character cannot be deleted because it is Original", 400);
+    if (character.marvel_id) {
+      throw new RestError(
+        "Character cannot be deleted because it is Original",
+        RestErrorCodes.FORBIDDEN
+      );
     }
+    await this.model.deleteOne({ _id: id });
   }
 }
