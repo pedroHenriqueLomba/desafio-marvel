@@ -18,6 +18,7 @@ export const CreateCharacterDto = [
     .isArray()
     .optional()
     .withMessage("URLs must be an array of strings"),
+  body("urls.*").isString().optional().withMessage("URLs must be strings"),
   body("thumbnail")
     .isString()
     .optional()
