@@ -65,4 +65,23 @@ export default class CharacterService {
     }
     await this.model.deleteOne({ _id: id });
   }
+
+  async findWithThumbnailAvailable(
+    paginateOptions: PaginateOptions<CharacterFiltersDto>
+  ): Promise<Paginate<CharacterDocument>> {
+    const { limit, page } = paginateOptions;
+    const filter = { thumbnail: { $not: /image_not_available/ } };
+    const characters = await this.model
+      .find(filter)
+      .limit(limit)
+      .skip(limit * (page - 1))
+      .exec();
+    const total = await this.model.countDocuments(filter);
+    return new Paginate<CharacterDocument>(
+      characters.map((character) => character.toObject()),
+      total,
+      limit,
+      page
+    );
+  }
 }

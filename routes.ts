@@ -43,5 +43,6 @@ routes.delete("/creators/:id", new CreatorController().delete);
 
 // Aditional routes
 routes.get("/comics/:title/creators", new AditionalRoutesController().findCreatorByTitleComic);
+routes.get("/characters/thumbnail/available", new AditionalRoutesController().findCharactersWithThumbnailAvailable);
 
 export { routes };
