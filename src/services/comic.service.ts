@@ -105,4 +105,20 @@ export default class ComicService {
       page
     );
   }
+
+  async calculatePriceByPage(comicId: string, typeOfComic: string): Promise<number> {
+    const comic = await this.model.findById(comicId);
+    if (!comic) {
+      throw new RestError("Comic not found", RestErrorCodes.NOT_FOUND);
+    }
+    const price = comic.prices.find((price) => price.type === typeOfComic);
+    if (!price) {
+      throw new RestError("Comic price not found", RestErrorCodes.NOT_FOUND);
+    }
+    if (price.price === null || price.price === undefined) {
+      throw new RestError("Comic price is null or undefined", RestErrorCodes.NOT_FOUND);
+    }
+
+    return (price.price ?? 0) / (comic.pageCount ?? 1) ;
+  }
 }
