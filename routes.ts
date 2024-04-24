@@ -20,6 +20,11 @@ routes.get("/health", new HealthCheckController().healthCheck);
 // Populate database
 routes.get("/populate", new PopulateDbController().populate)
 
+// Aditional routes
+routes.get("/comics/:title/creators", new AditionalRoutesController().findCreatorByTitleComic);
+routes.get("/characters/thumbnail/available", new AditionalRoutesController().findCharactersWithThumbnailAvailable);
+routes.get("/comics/cheaper-then", new AditionalRoutesController().findComicCheaperThen);
+
 // Characters
 routes.post("/characters", CreateCharacterDto, new CharacterController().create);
 routes.get("/characters", new CharacterController().list);
@@ -40,9 +45,5 @@ routes.get("/creators", new CreatorController().list);
 routes.get("/creators/:id", new CreatorController().findById);
 routes.put("/creators/:id", CreatorUpdateDto, new CreatorController().update);
 routes.delete("/creators/:id", new CreatorController().delete);
-
-// Aditional routes
-routes.get("/comics/:title/creators", new AditionalRoutesController().findCreatorByTitleComic);
-routes.get("/characters/thumbnail/available", new AditionalRoutesController().findCharactersWithThumbnailAvailable);
 
 export { routes };

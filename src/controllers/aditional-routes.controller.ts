@@ -12,6 +12,7 @@ export class AditionalRoutesController {
   constructor() {
     this.findCreatorByTitleComic = this.findCreatorByTitleComic.bind(this);
     this.findCharactersWithThumbnailAvailable = this.findCharactersWithThumbnailAvailable.bind(this);
+    this.findComicCheaperThen = this.findComicCheaperThen.bind(this);
   }
 
   public async findCreatorByTitleComic(req: any, res: any) {
@@ -35,6 +36,21 @@ export class AditionalRoutesController {
         req.query
       );
       const characters = await this.characterService.findWithThumbnailAvailable(paginateOptions);
+      res.status(200).send(characters);
+    } catch (error: any) {
+      const message = error.message ? error.message : "Error";
+      const code = error.code ? error.code : 400;
+      res.status(code).send(message);
+    }
+  }
+
+  public async findComicCheaperThen(req: any, res: any) {
+    try {
+      const paginateOptions = new PaginateOptions<any>(
+        req.query
+      );
+      const price = req.query.price;
+      const characters = await this.comicService.findCheaperThen(paginateOptions, price);
       res.status(200).send(characters);
     } catch (error: any) {
       const message = error.message ? error.message : "Error";

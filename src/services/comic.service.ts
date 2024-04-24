@@ -70,4 +70,39 @@ export default class ComicService {
     }
     return comic.toObject();
   }
+
+  async findCheaperThen(
+    paginateOptions: PaginateOptions<ComicFiltersDto>,
+    price: number
+  ): Promise<Paginate<ComicDocument>> {
+    const { limit, page } = paginateOptions;
+    const filter = [
+      {
+        $unwind: {
+          path: "$prices"
+        },
+      },
+      {
+        $match: {
+          "prices.price": {
+            $lt: Number(price),
+          },
+        },
+      },
+    ];
+
+    const comics = await this.model
+      .aggregate(filter)
+      .limit(limit)
+      .skip(limit * (page - 1))
+      .exec();
+
+    const total = await this.model.countDocuments({ filter });
+    return new Paginate<ComicDocument>(
+      comics,
+      total,
+      limit,
+      page
+    );
+  }
 }
