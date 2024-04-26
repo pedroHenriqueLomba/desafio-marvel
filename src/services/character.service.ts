@@ -5,7 +5,11 @@ import { Paginate, PaginateOptions } from "../util/paginate";
 import { RestError, RestErrorCodes } from "../util/rest-error";
 
 export default class CharacterService {
-  private model = charactersModel;
+  private model;
+
+  constructor(model = charactersModel) {
+    this.model = model;
+  }
 
   async create(character: Character): Promise<CharacterDocument> {
     const createdCharacter = await this.model.create(character);

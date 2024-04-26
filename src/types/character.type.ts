@@ -1,7 +1,7 @@
 import { Document, Model } from 'mongoose';
 
 export interface Character {
-    marvel_id: number;
+    marvel_id?: number;
     name: string;
     description: string | null;
     modified: Date;
