@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.04% </span>
+                <span class="strong">81.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>51/91</span>
+                <span class='fraction'>74/91</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>6/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.04% </span>
+                <span class="strong">81.31% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>51/91</span>
+                <span class='fraction'>74/91</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -164,8 +164,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -200,31 +200,31 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -290,32 +290,32 @@ export default class CharacterService {
     return character.toObject();
   }
 &nbsp;
-  async <span class="fstat-no" title="function not covered" >update(</span>
-<span class="cstat-no" title="statement not covered" >    id: string,</span>
-<span class="cstat-no" title="statement not covered" >    characterData: Character</span>
-<span class="cstat-no" title="statement not covered" >  ): Promise&lt;CharacterDocument&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const character = await this.model.findById(id);</span>
-<span class="cstat-no" title="statement not covered" >    if (!character) {</span>
-<span class="cstat-no" title="statement not covered" >      throw new RestError("Character not found", RestErrorCodes.NOT_FOUND);</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    character.set(characterData);</span>
-<span class="cstat-no" title="statement not covered" >    await character.save();</span>
-<span class="cstat-no" title="statement not covered" >    return character.toObject();</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
+  async update(
+    id: string,
+    characterData: Character
+  ): Promise&lt;CharacterDocument&gt; {
+    const character = await this.model.findById(id);
+    if (!character) {
+      throw new RestError("Character not found", RestErrorCodes.NOT_FOUND);
+    }
+    character.set(characterData);
+    await character.save();
+    return character.toObject();
+  }
 &nbsp;
-  async <span class="fstat-no" title="function not covered" >delete(id: string): Promise&lt;void&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const character = await this.model.findById(id);</span>
-<span class="cstat-no" title="statement not covered" >    if (!character) {</span>
-<span class="cstat-no" title="statement not covered" >      throw new RestError("Character not found", RestErrorCodes.NOT_FOUND);</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    if (character.marvel_id) {</span>
-<span class="cstat-no" title="statement not covered" >      throw new RestError(</span>
-<span class="cstat-no" title="statement not covered" >        "Character cannot be deleted because it is Original",</span>
-<span class="cstat-no" title="statement not covered" >        RestErrorCodes.FORBIDDEN</span>
-<span class="cstat-no" title="statement not covered" >      );</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    await this.model.deleteOne({ _id: id });</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
+  async delete(id: string): Promise&lt;void&gt; {
+    const character = await this.model.findById(id);
+    if (!character) {
+      throw new RestError("Character not found", RestErrorCodes.NOT_FOUND);
+    }
+    if (character.marvel_id) {
+      throw new RestError(
+        "Character cannot be deleted because it is Original",
+        RestErrorCodes.FORBIDDEN
+      );
+    }
+    await this.model.deleteOne({ _id: id });
+  }
 &nbsp;
   async <span class="fstat-no" title="function not covered" >findWithThumbnailAvailable(</span>
 <span class="cstat-no" title="statement not covered" >    paginateOptions: PaginateOptions&lt;CharacterFiltersDto&gt;</span>
@@ -343,7 +343,7 @@ export default class CharacterService {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-26T17:35:27.975Z
+                at 2024-04-30T16:08:55.058Z
             </div>
         <script src="../prettify.js"></script>
         <script>

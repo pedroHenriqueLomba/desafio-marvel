@@ -1,8 +1,10 @@
 import { expect, jest, test, beforeEach, describe } from "@jest/globals";
-import CharacterService from "../../character.service";
-import { Paginate, PaginateOptions } from "../../../util/paginate";
-import { CharacterFiltersDto } from "../../../dtos/characters/character-filter.dto";
+import CharacterService from "../../../character.service";
+import { Paginate, PaginateOptions } from "../../../../util/paginate";
+import { CharacterFiltersDto } from "../../../../dtos/characters/character-filter.dto";
 import { exec } from "child_process";
+import { set } from "mongoose";
+import { mock } from "node:test";
 
 const mockCharacter = {
   _id: "662a8e383b34e99503907fb1",
@@ -106,7 +108,7 @@ const mockModel = {
   find: jest.fn().mockReturnThis(),
   limit: jest.fn().mockReturnThis(),
   skip: jest.fn().mockReturnThis(),
-  exec : jest.fn().mockReturnValue(mockCharacterList),
+  exec: jest.fn().mockReturnValue(mockCharacterList),
   countDocuments: jest.fn().mockReturnValue(5),
   findById: jest.fn().mockReturnValue(mockCharacter),
   deleteOne: jest.fn(),
@@ -144,13 +146,14 @@ describe("Testing CRUD operations", () => {
       const characters = await characterService.list(pagination);
 
       expect(characters).toEqual(new Paginate(mockCharacterList, 5, 5, 1));
-
     });
   });
 
   describe("Testing findById method", () => {
     test("should return a character by id", async () => {
-      const character = await characterService.findById("662a8e383b34e99503907fb1");
+      const character = await characterService.findById(
+        "662a8e383b34e99503907fb1"
+      );
 
       expect(character).toEqual(mockCharacter);
     });
@@ -161,6 +164,119 @@ describe("Testing CRUD operations", () => {
         await characterService.findById("662a8e383b34e99503907fa9");
       } catch (error: any) {
         expect(error.message).toBe("Character not found");
+      }
+    });
+  });
+
+  describe("Testing update method", () => {
+    const updatedData = {
+      name: "Nome da Entidade atualizada",
+      description: "Descrição da Entidade",
+      modified: new Date("2024-04-19T12:00:00.000Z"),
+      resourceURI: "https://exemplo.com",
+      urls: ["https://exemplo.com/url1", "https://exemplo.com/url2"],
+      thumbnail: "https://exemplo.com/thumbnail.jpg",
+      toObject: jest.fn().mockReturnThis(),
+      set: jest.fn(),
+      save: jest.fn(),
+    };
+
+    test("should update a character", async () => {
+      const oldCharacter = {
+        name: "Nome da Entidade",
+        description: "Descrição da Entidade",
+        modified: new Date("2024-04-19T12:00:00.000Z"),
+        resourceURI: "https://exemplo.com",
+        urls: ["https://exemplo.com/url1", "https://exemplo.com/url2"],
+        thumbnail: "https://exemplo.com/thumbnail.jpg",
+        set: jest.fn().mockImplementation(function (this: any, updatedData) {
+          Object.assign(this, updatedData);
+        }),
+        save: jest.fn().mockImplementation(function (this: any, updatedData) {
+          this.set(updatedData);
+        }),
+        toObject: jest.fn().mockReturnThis(),
+      };
+
+      mockModel.findById = jest.fn().mockReturnValue(oldCharacter);
+
+      const updatedCharacter = await characterService.update(
+        "662a8e383b34e99503907fb1",
+        updatedData
+      );
+
+      expect(updatedCharacter).toEqual(updatedData);
+    });
+
+    test("should throw an error when character not found", async () => {
+      mockModel.findById = jest.fn().mockReturnValue(null);
+      try {
+        await characterService.update("662a8e383b34e99503907fb1", updatedData);
+      } catch (error: any) {
+        expect(error.message).toBe("Character not found");
+      }
+    });
+  });
+
+  describe("Testing delete method", () => {
+    test("should delete a character", async () => {
+      const character = {
+        toObject: jest.fn().mockReturnThis(),
+        _id: "66251a9cce471f7c33719979",
+        name: "Beast",
+        description: "",
+        modified: "2014-01-13T19:48:32.000Z",
+        resourceURI: "http://gateway.marvel.com/v1/public/characters/1009175",
+        urls: [
+          "http://marvel.com/characters/3/beast?utm_campaign=apiRef&utm_source=acba892b64c079f79b646592580eee92",
+          "http://marvel.com/universe/Beast_(Henry_McCoy)?utm_campaign=apiRef&utm_source=acba892b64c079f79b646592580eee92",
+          "http://marvel.com/comics/characters/1009175/beast?utm_campaign=apiRef&utm_source=acba892b64c079f79b646592580eee92",
+        ],
+        thumbnail: "http://i.annihil.us/u/prod/marvel/i/mg/2/80/511a79a0451a3.jpg",
+        __v: 0,
+      }
+
+      mockModel.findById = jest.fn().mockReturnValue(character);
+      mockModel.deleteOne = jest.fn();
+
+      await characterService.delete("66251a9cce471f7c33719979");
+
+      expect(mockModel.deleteOne).toHaveBeenCalled();
+    });
+
+    test("should throw an error when character not found", async () => {
+      mockModel.findById = jest.fn().mockReturnValue(null);
+      try {
+        await characterService.delete("662a8e383b34e99503907fa9");
+      } catch (error: any) {
+        expect(error.message).toBe("Character not found");
+      }
+    })
+
+    test("should not delete a character", async () => {
+      const character = {
+        toObject: jest.fn().mockReturnThis(),
+        _id: "66251a9cce471f7c33719979",
+        marvel_id: 1009175,
+        name: "Beast",
+        description: "",
+        modified: "2014-01-13T19:48:32.000Z",
+        resourceURI: "http://gateway.marvel.com/v1/public/characters/1009175",
+        urls: [
+          "http://marvel.com/characters/3/beast?utm_campaign=apiRef&utm_source=acba892b64c079f79b646592580eee92",
+          "http://marvel.com/universe/Beast_(Henry_McCoy)?utm_campaign=apiRef&utm_source=acba892b64c079f79b646592580eee92",
+          "http://marvel.com/comics/characters/1009175/beast?utm_campaign=apiRef&utm_source=acba892b64c079f79b646592580eee92",
+        ],
+        thumbnail: "http://i.annihil.us/u/prod/marvel/i/mg/2/80/511a79a0451a3.jpg",
+        __v: 0,
+      }
+
+      mockModel.findById = jest.fn().mockReturnValue(character);
+      
+      try {
+        await characterService.delete("66251a9cce471f7c33719979");
+      } catch (error: any) {
+        expect(error.message).toBe("Character cannot be deleted because it is Original");
       }
     });
   });

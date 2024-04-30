@@ -15,7 +15,6 @@ export default class CreatorController {
 
   async create(req: any, res: any) {
     try {
-      console.log('aqui');
       const creator = await this.service.create(req.body);
       res.status(201).send(creator);
     } catch (error: any) {
