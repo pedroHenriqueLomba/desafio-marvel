@@ -5,7 +5,11 @@ import { Paginate, PaginateOptions } from "../util/paginate";
 import { RestError, RestErrorCodes } from "../util/rest-error";
 
 export default class CreatorService {
-  private model = creatorsModel;
+  private model;
+
+  constructor(model = creatorsModel) {
+    this.model = model;
+  }
 
   async create(data: any): Promise<CreatorDocument> {
     const createdCreator = await this.model.create(data);
@@ -19,7 +23,8 @@ export default class CreatorService {
     const creators = await this.model
       .find(filters)
       .limit(limit)
-      .skip(limit * (page - 1));
+      .skip(limit * (page - 1))
+      .exec();
 
     const total = await this.model.countDocuments(filters);
     return new Paginate<CreatorDocument>(

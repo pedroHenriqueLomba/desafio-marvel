@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for services/character.service.ts</title>
+    <title>Code coverage report for services/creator.service.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">services</a> character.service.ts</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">services</a> creator.service.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.31% </span>
+                <span class="strong">92.3% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>74/91</span>
+                <span class='fraction'>72/78</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.31% </span>
+                <span class="strong">92.3% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>74/91</span>
+                <span class='fraction'>72/78</span>
             </div>
         
             
@@ -141,20 +141,7 @@
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -202,9 +189,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -225,6 +209,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -233,107 +218,83 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { CharacterFiltersDto } from "../dtos/characters/character-filter.dto";
-import charactersModel from "../models/characters.model";
-import { Character, CharacterDocument } from "../types/character.type";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { CreatorFilterDto } from "../dtos/creators/creator-filter.dto";
+import creatorsModel from "../models/creators.model";
+import { CreatorDocument } from "../types/creator.type";
 import { Paginate, PaginateOptions } from "../util/paginate";
 import { RestError, RestErrorCodes } from "../util/rest-error";
 &nbsp;
-export default class CharacterService {
+export default class CreatorService {
   private model;
 &nbsp;
-  constructor(model = charactersModel) {
+  constructor(model = creatorsModel) {
     this.model = model;
   }
 &nbsp;
-  async create(character: Character): Promise&lt;CharacterDocument&gt; {
-    const createdCharacter = await this.model.create(character);
-    return createdCharacter.toObject();
+  async create(data: any): Promise&lt;CreatorDocument&gt; {
+    const createdCreator = await this.model.create(data);
+    return createdCreator.toObject();
   }
 &nbsp;
   async list(
-    paginateOptions: PaginateOptions&lt;CharacterFiltersDto&gt;
-  ): Promise&lt;Paginate&lt;CharacterDocument&gt;&gt; {
+    paginateOptions: PaginateOptions&lt;CreatorFilterDto&gt;
+  ): Promise&lt;Paginate&lt;CreatorDocument&gt;&gt; {
     const { limit, page, filters } = paginateOptions;
-    const characters = await this.model
+    const creators = await this.model
       .find(filters)
       .limit(limit)
       .skip(limit * (page - 1))
       .exec();
 &nbsp;
     const total = await this.model.countDocuments(filters);
-    return new Paginate&lt;CharacterDocument&gt;(
-      characters.map((character) =&gt; character.toObject()),
+    return new Paginate&lt;CreatorDocument&gt;(
+      creators.map((creator) =&gt; creator.toObject()),
       total,
-      limit,
-      page
+      page,
+      limit
     );
   }
 &nbsp;
-  async findById(id: string): Promise&lt;CharacterDocument&gt; {
-    const character = await this.model.findById(id);
-    if (!character) {
-      throw new RestError("Character not found", RestErrorCodes.NOT_FOUND);
+  async findById(id: string): Promise&lt;CreatorDocument&gt; {
+    const creator = await this.model.findById(id);
+    if (!creator) {
+      throw new RestError("Creator not found", RestErrorCodes.NOT_FOUND);
     }
-    return character.toObject();
+    return creator.toObject();
   }
 &nbsp;
-  async update(
-    id: string,
-    characterData: Character
-  ): Promise&lt;CharacterDocument&gt; {
-    const character = await this.model.findById(id);
-    if (!character) {
-      throw new RestError("Character not found", RestErrorCodes.NOT_FOUND);
+  async update(id: string, data: any): Promise&lt;CreatorDocument&gt; {
+    const creator = await this.model.findById(id);
+    if (!creator) {
+      throw new RestError("Creator not found", RestErrorCodes.NOT_FOUND);
     }
-    character.set(characterData);
-    await character.save();
-    return character.toObject();
+    creator.set(data);
+    await creator.save();
+    return creator.toObject();
   }
 &nbsp;
   async delete(id: string): Promise&lt;void&gt; {
-    const character = await this.model.findById(id);
-    if (!character) {
-      throw new RestError("Character not found", RestErrorCodes.NOT_FOUND);
+    const creator = await this.model.findById(id);
+    if (!creator) {
+      throw new RestError("Creator not found", RestErrorCodes.NOT_FOUND);
     }
-    if (character.marvel_id) {
+    if (creator.marvel_id) {
       throw new RestError(
-        "Character cannot be deleted because it is Original",
-        RestErrorCodes.FORBIDDEN
+        "Creator cannot be deleted",
+        RestErrorCodes.BAD_REQUEST
       );
+    } else {
+      await this.model.deleteOne({ _id: id });
     }
-    await this.model.deleteOne({ _id: id });
   }
 &nbsp;
-  async <span class="fstat-no" title="function not covered" >findWithThumbnailAvailable(</span>
-<span class="cstat-no" title="statement not covered" >    paginateOptions: PaginateOptions&lt;CharacterFiltersDto&gt;</span>
-<span class="cstat-no" title="statement not covered" >  ): Promise&lt;Paginate&lt;CharacterDocument&gt;&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const { limit, page } = paginateOptions;</span>
-<span class="cstat-no" title="statement not covered" >    const filter = { thumbnail: { $not: /image_not_available/ } };</span>
-<span class="cstat-no" title="statement not covered" >    const characters = await this.model</span>
-<span class="cstat-no" title="statement not covered" >      .find(filter)</span>
-<span class="cstat-no" title="statement not covered" >      .limit(limit)</span>
-<span class="cstat-no" title="statement not covered" >      .skip(limit * (page - 1))</span>
-<span class="cstat-no" title="statement not covered" >      .exec();</span>
-<span class="cstat-no" title="statement not covered" >    const total = await this.model.countDocuments(filter);</span>
-<span class="cstat-no" title="statement not covered" >    return new Paginate&lt;CharacterDocument&gt;(</span>
-<span class="cstat-no" title="statement not covered" >      characters.map((character) =&gt; character.toObject()),</span>
-<span class="cstat-no" title="statement not covered" >      total,</span>
-<span class="cstat-no" title="statement not covered" >      limit,</span>
-<span class="cstat-no" title="statement not covered" >      page</span>
-<span class="cstat-no" title="statement not covered" >    );</span>
+  async <span class="fstat-no" title="function not covered" >findByFullName(fullName: string): Promise&lt;CreatorDocument&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    const creator = await this.model.findOne({ fullName });</span>
+<span class="cstat-no" title="statement not covered" >    if (!creator) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new RestError("Creator not found", RestErrorCodes.NOT_FOUND);</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >    return creator.toObject();</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 }
 &nbsp;</pre></td></tr></table></pre>

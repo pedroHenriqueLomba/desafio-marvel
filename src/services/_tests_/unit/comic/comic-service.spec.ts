@@ -435,6 +435,12 @@ describe("Testing CRUD operations", () => {
       stories: ["Origin Story", "The First Battle"],
       events: ["Spider-Verse"],
       toObject: jest.fn().mockReturnThis(),
+      set: jest.fn().mockImplementation(function (this: any, updatedData) {
+        Object.assign(this, updatedData);
+      }),
+      save: jest.fn().mockImplementation(function (this: any, updatedData) {
+        this.set(updatedData);
+      }),
     };
 
     const oldComic = {
@@ -496,6 +502,7 @@ describe("Testing CRUD operations", () => {
       mockModel.findById.mockReturnValue(oldComic);
 
       const updatedComic = await comicService.update("123456", updatedData);
+      expect(updatedComic).toEqual(updatedData);
     });
 
     test("should throw an error when comic is not found", async () => {
