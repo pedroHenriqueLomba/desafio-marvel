@@ -1,7 +1,7 @@
-import { Document, Model } from 'mongoose';
+import { Document, Model } from "mongoose";
 
 export interface Comic {
-  marvel_id: number;
+  marvel_id?: number;
   title: string;
   issueNumber: number;
   description: string;
@@ -11,26 +11,20 @@ export interface Comic {
   pageCount: number;
   urls: string[];
   collections: string[];
-  dates: [
-    {
-      date: Date;
-      type: string;
-    }
-  ];
-  prices: [
-    {
-      price: number;
-      type: string;
-    }
-  ];
+  dates: {
+    date: Date;
+    type: string;
+  }[];
+  prices: {
+    price: number;
+    type: string;
+  }[];
   thumbnail: string;
   images: string[];
-  creators: [
-    {
-      name: string;
-      role: string;
-    }
-  ];
+  creators: {
+    name: string;
+    role: string;
+  }[];
   characters: string[];
   stories: string[];
   events: string[];

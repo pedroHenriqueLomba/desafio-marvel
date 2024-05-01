@@ -5,7 +5,11 @@ import { Paginate, PaginateOptions } from "../util/paginate";
 import { RestError, RestErrorCodes } from "../util/rest-error";
 
 export default class ComicService {
-  private model = comicsModel;
+  private model;
+
+  constructor(model = comicsModel) {
+    this.model = model;
+  }
 
   async create(comic: Comic): Promise<ComicDocument> {
     const createdComic = await this.model.create(comic);
@@ -21,6 +25,7 @@ export default class ComicService {
       .limit(limit)
       .skip(limit * (page - 1))
       .exec();
+
 
     const total = await this.model.countDocuments(filters);
     return new Paginate<ComicDocument>(

@@ -2,9 +2,6 @@ import { expect, jest, test, beforeEach, describe } from "@jest/globals";
 import CharacterService from "../../../character.service";
 import { Paginate, PaginateOptions } from "../../../../util/paginate";
 import { CharacterFiltersDto } from "../../../../dtos/characters/character-filter.dto";
-import { exec } from "child_process";
-import { set } from "mongoose";
-import { mock } from "node:test";
 
 const mockCharacter = {
   _id: "662a8e383b34e99503907fb1",
