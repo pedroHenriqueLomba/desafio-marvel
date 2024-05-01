@@ -24,7 +24,8 @@ routes.get("/populate", new PopulateDbController().populate)
 routes.get("/comics/:title/creators", new AditionalRoutesController().findCreatorByTitleComic);
 routes.get("/characters/thumbnail/available", new AditionalRoutesController().findCharactersWithThumbnailAvailable);
 routes.get("/comics/cheaper-then", new AditionalRoutesController().findComicCheaperThen);
-routes.get("/comics/:id/price-by-page", new AditionalRoutesController().calculatePriceByPage)
+routes.get("/comics/:id/price-by-page", new AditionalRoutesController().calculatePriceByPage);
+routes.get("/comics/newer-then", new AditionalRoutesController().findComicNewerThen);
 
 // Characters
 routes.post("/characters", CreateCharacterDto, new CharacterController().create);

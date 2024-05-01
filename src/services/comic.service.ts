@@ -26,7 +26,6 @@ export default class ComicService {
       .skip(limit * (page - 1))
       .exec();
 
-
     const total = await this.model.countDocuments(filters);
     return new Paginate<ComicDocument>(
       comics.map((comic) => comic.toObject()),
@@ -84,7 +83,7 @@ export default class ComicService {
     const filter = [
       {
         $unwind: {
-          path: "$prices"
+          path: "$prices",
         },
       },
       {
@@ -103,15 +102,13 @@ export default class ComicService {
       .exec();
 
     const total = await this.model.countDocuments({ filter });
-    return new Paginate<ComicDocument>(
-      comics,
-      total,
-      limit,
-      page
-    );
+    return new Paginate<ComicDocument>(comics, total, limit, page);
   }
 
-  async calculatePriceByPage(comicId: string, typeOfComic: string): Promise<number> {
+  async calculatePriceByPage(
+    comicId: string,
+    typeOfComic: string
+  ): Promise<number> {
     const comic = await this.model.findById(comicId);
     if (!comic) {
       throw new RestError("Comic not found", RestErrorCodes.NOT_FOUND);
@@ -121,9 +118,43 @@ export default class ComicService {
       throw new RestError("Comic price not found", RestErrorCodes.NOT_FOUND);
     }
     if (price.price === null || price.price === undefined) {
-      throw new RestError("Comic price is null or undefined", RestErrorCodes.NOT_FOUND);
+      throw new RestError(
+        "Comic price is null or undefined",
+        RestErrorCodes.NOT_FOUND
+      );
     }
 
-    return (price.price ?? 0) / (comic.pageCount ?? 1) ;
+    return (price.price ?? 0) / (comic.pageCount ?? 1);
+  }
+
+  async findNewerThen(
+    publishDate: Date,
+    paginateOptions: PaginateOptions<ComicFiltersDto>
+  ): Promise<Paginate<ComicDocument>> {
+    const { limit, page } = paginateOptions;
+    const filter = [
+      {
+        $unwind: {
+          path: "$dates",
+        },
+      },
+      {
+        $match: {
+          "dates.date": {
+            $gt: publishDate,
+          },
+        },
+      },
+    ];
+
+    const comics = await this.model
+      .aggregate(filter)
+      .limit(limit)
+      .skip(limit * (page - 1))
+      .exec();
+
+    const mongoTotal = await this.model.aggregate(filter).count("total");
+    const total = mongoTotal.length > 0 ? mongoTotal[0].total : 0;
+    return new Paginate<ComicDocument>(comics, total, limit, page);
   }
 }
