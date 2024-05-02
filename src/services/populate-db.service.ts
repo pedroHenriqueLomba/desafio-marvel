@@ -13,14 +13,32 @@ export class PopulateDbService {
   private creatorsModel = creatorsModel;
 
   async insertCharacters(characters: Character[]) {
-    return await this.charactersModel.insertMany(characters);
+    const count = await this.charactersModel.countDocuments();
+    if (count === 0) {
+      return await this.charactersModel.insertMany(characters);
+    } else {
+      console.log('Characters already populated');
+      return [];
+    }
   }
 
   async insertComics(comics: Comic[]) {
-    return await this.comicsModel.insertMany(comics);
+    const count = await this.comicsModel.countDocuments();
+    if (count === 0) {
+      return await this.comicsModel.insertMany(comics);
+    } else {
+      console.log('Comics already populated');
+      return [];
+    }
   }
 
   async insertCreators(creators: Creator[]) {
-    return await this.creatorsModel.insertMany(creators);
+    const count = await this.creatorsModel.countDocuments();
+    if (count === 0) {
+      return await this.creatorsModel.insertMany(creators);
+    } else {
+      console.log('Creators already populated');
+      return [];
+    }
   }
 }

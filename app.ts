@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import { routes } from "./routes";
 import dotenv from 'dotenv';
+import { PopulateDbController } from "./src/controllers/populate-db.controller";
 dotenv.config();
 
 class App {
@@ -27,6 +28,7 @@ class App {
       }
       await mongoose.connect(mongoConnection);
       console.log("connect database success");
+      PopulateDbController.populate();
     } catch (error) {
       console.error("Cannot connect to database, error:", error);
     }

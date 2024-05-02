@@ -17,9 +17,6 @@ const routes = Router();
 // Health Check
 routes.get("/health", new HealthCheckController().healthCheck);
 
-// Populate database
-routes.get("/populate", new PopulateDbController().populate)
-
 // Aditional routes
 routes.get("/comics/:title/creators", new AditionalRoutesController().findCreatorByTitleComic);
 routes.get("/characters/thumbnail/available", new AditionalRoutesController().findCharactersWithThumbnailAvailable);
