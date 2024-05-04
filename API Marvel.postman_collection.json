@@ -1,0 +1,557 @@
+{
+	"info": {
+		"_postman_id": "25de42b9-e5b7-4ff2-9cc4-e2aff7039d09",
+		"name": "API Marvel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30547130"
+	},
+	"item": [
+		{
+			"name": "character",
+			"item": [
+				{
+					"name": "Find all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{base_url}}/characters?page=1&limit=3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"characters"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "filters",
+									"value": "{\"name\": \"Beast\"}",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/characters/662a8e383b34e99503907fb1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"characters",
+								"662a8e383b34e99503907fb1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nome da Entidade\",\n  \"description\": \"Descrição da Entidade (opcional)\",\n  \"modified\": \"2024-04-19T12:00:00.000Z\",\n  \"resourceURI\": \"https://exemplo.com\", \n  \"urls\": [\"https://exemplo.com/url1\", \"https://exemplo.com/url2\"],\n  \"thumbnail\": \"https://exemplo.com/thumbnail.jpg\" \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/characters",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"characters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nome da Entidade atualizado\",\n  \"description\": \"Descrição da Entidade (opcional)\",\n  \"modified\": \"2024-04-19T12:00:00.000Z\",\n  \"resourceURI\": \"https://exemplo.com\", // URI do recurso (opcional)\n  \"urls\": [\"https://exemplo.com/url1\", \"https://exemplo.com/url2\"], // URLs (opcional)\n  \"thumbnail\": \"https://exemplo.com/thumbnail.jpg\" // Thumbnail (opcional)\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/characters/6624364f6aa72809cf1b0f83",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"characters",
+								"6624364f6aa72809cf1b0f83"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/characters/66251b0dce471f7c33719fb0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"characters",
+								"66251b0dce471f7c33719fb0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comic",
+			"item": [
+				{
+					"name": "Find all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{base_url}}/comics?page=1&limit=3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comics"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "filters",
+									"value": "%7B%22title%22%3A%20%22MARVEL%20UNIVERSE%20AVENGERS%20EARTH%27S%20MIGHTIEST%20HEROES%20VOL.%202%20DIGEST%20%28Digest%29%22%7D",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/comics/66324aca95c1389f1e6d3038",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comics",
+								"66324aca95c1389f1e6d3038"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Spider-Man\",\n    \"issueNumber\": 1,\n    \"description\": \"The amazing adventures of Spider-Man\",\n    \"diamondCode\": \"123456\",\n    \"ean\": \"9781234567890\",\n    \"format\": \"Comic\",\n    \"pageCount\": 32,\n    \"urls\": [\n        \"https://example.com/spiderman\"\n    ],\n    \"collections\": [\n        \"Spider-Man Collection\"\n    ],\n    \"dates\": [\n        {\n            \"date\": \"2024-04-21\",\n            \"type\": \"release\"\n        },\n        {\n            \"date\": \"2024-04-28\",\n            \"type\": \"onsale\"\n        }\n    ],\n    \"prices\": [\n        {\n            \"price\": 3.99,\n            \"type\": \"printPrice\"\n        },\n        {\n            \"price\": 2.99,\n            \"type\": \"digitalPrice\"\n        }\n    ],\n    \"thumbnail\": \"https://example.com/spiderman-thumbnail.jpg\",\n    \"images\": [\n        \"https://example.com/spiderman-cover.jpg\"\n    ],\n    \"creators\": [\n        {\n            \"name\": \"Stan Lee\",\n            \"role\": \"Writer\"\n        },\n        {\n            \"name\": \"Steve Ditko\",\n            \"role\": \"Artist\"\n        }\n    ],\n    \"characters\": [\n        \"Spider-Man\",\n        \"Mary Jane Watson\"\n    ],\n    \"stories\": [\n        \"Origin Story\",\n        \"The First Battle\"\n    ],\n    \"events\": [\n        \"Spider-Verse\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/comics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Spider-Man 2\",\n    \"issueNumber\": 1,\n    \"description\": \"The amazing adventures of Spider-Man\",\n    \"diamondCode\": \"123456\",\n    \"ean\": \"9781234567890\",\n    \"format\": \"Comic\",\n    \"pageCount\": 32,\n    \"urls\": [\n        \"https://example.com/spiderman\"\n    ],\n    \"collections\": [\n        \"Spider-Man Collection\"\n    ],\n    \"dates\": [\n        {\n            \"date\": \"2024-04-21\",\n            \"type\": \"release\"\n        },\n        {\n            \"date\": \"2024-04-28\",\n            \"type\": \"onsale\"\n        }\n    ],\n    \"prices\": [\n        {\n            \"price\": 3.99,\n            \"type\": \"printPrice\"\n        },\n        {\n            \"price\": 2.99,\n            \"type\": \"digitalPrice\"\n        }\n    ],\n    \"thumbnail\": \"https://example.com/spiderman-thumbnail.jpg\",\n    \"images\": [\n        \"https://example.com/spiderman-cover.jpg\"\n    ],\n    \"creators\": [\n        {\n            \"name\": \"Stan Lee\",\n            \"role\": \"Writer\"\n        },\n        {\n            \"name\": \"Steve Ditko\",\n            \"role\": \"Artist\"\n        }\n    ],\n    \"characters\": [\n        \"Spider-Man\",\n        \"Mary Jane Watson\"\n    ],\n    \"stories\": [\n        \"Origin Story\",\n        \"The First Battle\"\n    ],\n    \"events\": [\n        \"Spider-Verse\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/comics/66324aca95c1389f1e6d3038",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comics",
+								"66324aca95c1389f1e6d3038"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/comics/66324aca95c1389f1e6d3038",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comics",
+								"66324aca95c1389f1e6d3038"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "creator",
+			"item": [
+				{
+					"name": "Find all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{base_url}}/creators?page=1&limit=5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"creators"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "filters",
+									"value": "{\"fullName\": \"Alejandro Barrionuevo Iribarne\"}",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/creators/66258deada2f4d690bf154e2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"creators",
+								"66258deada2f4d690bf154e2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"Stan\",\n  \"lastName\": \"Lee\",\n  \"fullName\": \"Stan Lee\",\n  \"role\": \"Writer\",\n  \"thumbnail\": \"https://example.com/stanlee-thumbnail.jpg\",\n  \"description\": \"Stan Lee was an American comic book writer, editor, publisher, and producer.\",\n  \"comics\": [\"Spider-Man\", \"X-Men\"],\n  \"series\": [\"The Amazing Spider-Man\", \"X-Men: The Animated Series\"],\n  \"stories\": [\"Origin Story\", \"The First Battle\"],\n  \"events\": [\"Spider-Verse\"],\n  \"urls\": [\"https://en.wikipedia.org/wiki/Stan_Lee\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/creators",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"creators"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"Stan atualizado\",\n  \"lastName\": \"Lee\",\n  \"fullName\": \"Stan Lee\",\n  \"role\": \"Writer\",\n  \"thumbnail\": \"https://example.com/stanlee-thumbnail.jpg\",\n  \"description\": \"Stan Lee was an American comic book writer, editor, publisher, and producer.\",\n  \"comics\": [\"Spider-Man\", \"X-Men\"],\n  \"series\": [\"The Amazing Spider-Man\", \"X-Men: The Animated Series\"],\n  \"stories\": [\"Origin Story\", \"The First Battle\"],\n  \"events\": [\"Spider-Verse\"],\n  \"urls\": [\"https://en.wikipedia.org/wiki/Stan_Lee\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/creators/66258deada2f4d690bf154e2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"creators",
+								"66258deada2f4d690bf154e2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/creators/66258deada2f4d690bf154e2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"creators",
+								"66258deada2f4d690bf154e2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Aditional routes",
+			"item": [
+				{
+					"name": "Find creators by title of saga",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/comics/:title/creators",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comics",
+								":title",
+								"creators"
+							],
+							"variable": [
+								{
+									"key": "title",
+									"value": "Guardians%20of%20the%20Galaxy%20%282013%29%20%239",
+									"uuid": "b4268eb2-f808-46cc-8e56-906b9f548c5c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Characters with thumbnail available route",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/characters/thumbnail/available?limit=100&page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"characters",
+								"thumbnail",
+								"available"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "100"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find comic cheaper then price",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/comics/cheaper-then?limit=20&page=1&price=2.5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comics",
+								"cheaper-then"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "price",
+									"value": "2.5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Calculate price by page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/comics/:id/price-by-page?type=printPrice",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comics",
+								":id",
+								"price-by-page"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "printPrice"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6633bd308b21ed5432f2c203",
+									"uuid": "dd3cc56f-5201-43cf-833f-be54dfaafcb5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Finding newer comics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/comics/newer-then?date=01/01/2014",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comics",
+								"newer-then"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "01/01/2014"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
