@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "test-stress": "npx autocannon -c 500 -d 10 -w 15 --renderStatusCodes --latency localhost:3000/characters",
     "start": "nodemon ./main.ts"
   },
   "keywords": [],
@@ -13,6 +14,7 @@
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.27",
+    "autocannon": "^7.15.0",
     "nodemon": "^3.1.0",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
