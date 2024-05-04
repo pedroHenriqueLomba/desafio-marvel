@@ -32,6 +32,8 @@ This will launch your React application in development mode. You should now be a
 
 ## Testing
 
+The reports of tests are on the folder `tests-reports` but you can run then following the next steps.
+
 ### Unit Tests
 
 To run unit tests, use the following command:
@@ -51,10 +53,6 @@ npm run test-stress
 ```
 
 This command will simulate stress on the application and help identify potential performance issues.
-
-## Usage
-
-Now that you have the project set up and running, you can start integrating the Marvel API into your React components.
 
 ## Additional Resources
 
