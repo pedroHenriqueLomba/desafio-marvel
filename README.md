@@ -1,4 +1,4 @@
-# Marvel API React Integration
+# Marvel API 
 
 Welcome to the Marvel API React Integration! This README will guide you through setting up the project and using the API to fetch Marvel superhero data in your React application.
 
