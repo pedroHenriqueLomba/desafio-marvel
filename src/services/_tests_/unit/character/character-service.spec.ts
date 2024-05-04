@@ -277,4 +277,17 @@ describe("Testing CRUD operations", () => {
       }
     });
   });
+
+  describe("Testing findWithThumbnailAvailable method", () => {
+    test("should return all characters with thumbnail available", async () => {
+      const pagination = new PaginateOptions<CharacterFiltersDto>({
+        limit: 5,
+        page: 1,
+      });
+      const characters = await characterService.findWithThumbnailAvailable(
+        pagination
+      );
+      expect(characters).toEqual(new Paginate(mockCharacterList, 5, 5, 1));
+    });
+  });
 });

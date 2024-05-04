@@ -238,6 +238,7 @@ const mockModel = {
   find: jest.fn().mockReturnThis(),
   limit: jest.fn().mockReturnThis(),
   skip: jest.fn().mockReturnThis(),
+  findOne: jest.fn(),
   exec: jest.fn().mockReturnValue(mockCreatorList),
   countDocuments: jest.fn(),
   findById: jest.fn(),
@@ -388,6 +389,23 @@ describe("Testing CRUD operations", () => {
         await creatorService.delete("123");
       } catch (error: any) {
         expect(error.message).toBe("Creator cannot be deleted");
+      }
+    });
+  });
+
+  describe("Testing findByFullName method", () => {
+    test("Should find a creator by full name", async () => {
+      mockModel.findOne.mockReturnValue(mockCreator);
+      const creator = await creatorService.findByFullName("Stan Lee");
+      expect(creator).toEqual(mockCreator);
+    });
+
+    test("Should throw an error when creator is not found", async () => {
+      mockModel.findOne.mockReturnValue(null);
+      try {
+        await creatorService.findByFullName("Stan Lee");
+      } catch (error: any) {
+        expect(error.message).toBe("Creator not found");
       }
     });
   });

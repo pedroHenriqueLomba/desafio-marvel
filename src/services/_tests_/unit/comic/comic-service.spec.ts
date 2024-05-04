@@ -2,6 +2,7 @@ import { expect, jest, test, beforeEach, describe } from "@jest/globals";
 import ComicService from "../../../comic.service";
 import { Paginate, PaginateOptions } from "../../../../util/paginate";
 import { ComicFiltersDto } from "../../../../dtos/comics/comic-filter.dto";
+import { RestErrorCodes } from "../../../../util/rest-error";
 
 const mockComic = {
   _id: "123456",
@@ -285,6 +286,9 @@ const mockComicList = [
 
 const mockModel = {
   create: jest.fn(),
+  findOne: jest.fn(),
+  aggregate: jest.fn().mockReturnThis(),
+  count: jest.fn().mockReturnValue(3),
   find: jest.fn().mockReturnThis(),
   limit: jest.fn().mockReturnThis(),
   skip: jest.fn().mockReturnThis(),
@@ -382,7 +386,7 @@ describe("Testing CRUD operations", () => {
         await comicService.findById("123456");
       } catch (error: any) {
         expect(error.message).toBe("Comic not found");
-        expect(error.code).toBe(404);
+        expect(error.code).toBe(RestErrorCodes.NOT_FOUND);
       }
     });
   });
@@ -511,7 +515,7 @@ describe("Testing CRUD operations", () => {
         await comicService.update("123456", updatedData);
       } catch (error: any) {
         expect(error.message).toBe("Comic not found");
-        expect(error.code).toBe(404);
+        expect(error.code).toBe(RestErrorCodes.NOT_FOUND);
       }
     });
   });
@@ -524,14 +528,14 @@ describe("Testing CRUD operations", () => {
 
       expect(mockModel.deleteOne).toHaveBeenCalled();
     });
-    
+
     test("should throw an error when comic is not found", async () => {
       mockModel.findById.mockReturnValue(null);
       try {
         await comicService.delete("123456");
       } catch (error: any) {
         expect(error.message).toBe("Comic not found");
-        expect(error.code).toBe(404);
+        expect(error.code).toBe(RestErrorCodes.NOT_FOUND);
       }
     });
 
@@ -587,10 +591,113 @@ describe("Testing CRUD operations", () => {
       };
       mockModel.findById.mockReturnValue(mockOriginalComic);
       try {
-        await comicService.delete("123456")
+        await comicService.delete("123456");
       } catch (error: any) {
-        expect(error.message).toBe("Comic cannot be deleted because it is Original");
+        expect(error.message).toBe(
+          "Comic cannot be deleted because it is Original"
+        );
+        expect(error.code).toBe(RestErrorCodes.FORBIDDEN);
       }
+    });
+  });
+
+  describe("Testing findByTitle method", () => {
+    test("should return a comic by title", async () => {
+      mockModel.findOne.mockReturnValue(mockComic);
+      const comic = await comicService.findByTitle("Spider-man");
+      expect(comic).toEqual(mockComic);
+    });
+
+    test("should throw an error when comic is not found", async () => {
+      mockModel.findOne.mockReturnValue(null);
+      try {
+        const comic = await comicService.findByTitle("Spider-man");
+      } catch (error: any) {
+        expect(error.message).toBe("Comic not found");
+        expect(error.code).toBe(RestErrorCodes.NOT_FOUND);
+      }
+    });
+  });
+
+  describe("Testing findCheaperThen method", () => {
+    test("should return comics cheaper than a given price", async () => {
+      mockModel.find.mockReturnThis();
+      mockModel.limit.mockReturnThis();
+      mockModel.skip.mockReturnThis();
+      mockModel.exec.mockReturnValue(mockComicList);
+      const pagination = new PaginateOptions<ComicFiltersDto>({
+        limit: 3,
+        page: 1,
+      });
+      const comics = await comicService.findCheaperThen(pagination, 5);
+
+      expect(comics).toEqual(new Paginate(mockComicList, 3, 3, 1));
+    });
+  });
+
+  describe("Testing calculatePriceByPage method", () => {
+    test("should return the price of a comic by page", async () => {
+      mockModel.findById.mockReturnValue(mockComic);
+
+      const price = await comicService.calculatePriceByPage(
+        "123456",
+        "printPrice"
+      );
+      expect(price).toBeCloseTo(0.12);
+    });
+
+    test("should throw an error when comic is not found", async () => {
+      mockModel.findById.mockReturnValue(null);
+      try {
+        await comicService.calculatePriceByPage("123456", "printPrice");
+      } catch (error: any) {
+        expect(error.message).toBe("Comic not found");
+        expect(error.code).toBe(RestErrorCodes.NOT_FOUND);
+      }
+    });
+
+    test("should throw an error when comic price is not found", async () => {
+      mockModel.findById.mockReturnValue(mockComic);
+      try {
+        await comicService.calculatePriceByPage("123456", "price");
+      } catch (error: any) {
+        expect(error.message).toBe("Comic price not found");
+        expect(error.code).toBe(RestErrorCodes.NOT_FOUND);
+      }
+    });
+
+    test("should throw an error when comic price is null or undefined", async () => {
+      const mockComicNullPrice = {
+        ...mockComic,
+        prices: [{ price: null, type: "printPrice" }],
+      };
+      mockModel.findById.mockReturnValue(mockComicNullPrice);
+      try {
+        await comicService.calculatePriceByPage("123456", "printPrice");
+      } catch (error: any) {
+        expect(error.message).toBe("Comic price is null or undefined");
+        expect(error.code).toBe(RestErrorCodes.NOT_FOUND);
+      }
+    });
+  });
+
+  describe("Testing findNewerThen method", () => {
+    test("should return comics newer than a given date", async () => {
+      mockModel.find.mockReturnThis();
+      mockModel.limit.mockReturnThis();
+      mockModel.skip.mockReturnThis();
+      mockModel.exec.mockReturnValue(mockComicList);
+      mockModel.count.mockReturnValue([{ total: 3 }]);
+      const pagination = new PaginateOptions<ComicFiltersDto>({
+        limit: 3,
+        page: 1,
+      });
+      const comics = await comicService.findNewerThen(
+        new Date("2000-04-21"),
+        pagination
+      );
+
+      expect(comics).toEqual(new Paginate(mockComicList, 3, 3, 1));
     });
   });
 });

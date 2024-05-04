@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.31% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>74/91</span>
+                <span class='fraction'>91/91</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.31% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>74/91</span>
+                <span class='fraction'>91/91</span>
             </div>
         
             
@@ -164,8 +164,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -227,23 +227,23 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { CharacterFiltersDto } from "../dtos/characters/character-filter.dto";
 import charactersModel from "../models/characters.model";
@@ -317,24 +317,24 @@ export default class CharacterService {
     await this.model.deleteOne({ _id: id });
   }
 &nbsp;
-  async <span class="fstat-no" title="function not covered" >findWithThumbnailAvailable(</span>
-<span class="cstat-no" title="statement not covered" >    paginateOptions: PaginateOptions&lt;CharacterFiltersDto&gt;</span>
-<span class="cstat-no" title="statement not covered" >  ): Promise&lt;Paginate&lt;CharacterDocument&gt;&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const { limit, page } = paginateOptions;</span>
-<span class="cstat-no" title="statement not covered" >    const filter = { thumbnail: { $not: /image_not_available/ } };</span>
-<span class="cstat-no" title="statement not covered" >    const characters = await this.model</span>
-<span class="cstat-no" title="statement not covered" >      .find(filter)</span>
-<span class="cstat-no" title="statement not covered" >      .limit(limit)</span>
-<span class="cstat-no" title="statement not covered" >      .skip(limit * (page - 1))</span>
-<span class="cstat-no" title="statement not covered" >      .exec();</span>
-<span class="cstat-no" title="statement not covered" >    const total = await this.model.countDocuments(filter);</span>
-<span class="cstat-no" title="statement not covered" >    return new Paginate&lt;CharacterDocument&gt;(</span>
-<span class="cstat-no" title="statement not covered" >      characters.map((character) =&gt; character.toObject()),</span>
-<span class="cstat-no" title="statement not covered" >      total,</span>
-<span class="cstat-no" title="statement not covered" >      limit,</span>
-<span class="cstat-no" title="statement not covered" >      page</span>
-<span class="cstat-no" title="statement not covered" >    );</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
+  async findWithThumbnailAvailable(
+    paginateOptions: PaginateOptions&lt;CharacterFiltersDto&gt;
+  ): Promise&lt;Paginate&lt;CharacterDocument&gt;&gt; {
+    const { limit, page } = paginateOptions;
+    const filter = { thumbnail: { $not: /image_not_available/ } };
+    const characters = await this.model
+      .find(filter)
+      .limit(limit)
+      .skip(limit * (page - 1))
+      .exec();
+    const total = await this.model.countDocuments(filter);
+    return new Paginate&lt;CharacterDocument&gt;(
+      characters.map((character) =&gt; character.toObject()),
+      total,
+      limit,
+      page
+    );
+  }
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -343,7 +343,7 @@ export default class CharacterService {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-01T19:31:20.097Z
+                at 2024-05-04T13:44:48.056Z
             </div>
         <script src="../prettify.js"></script>
         <script>

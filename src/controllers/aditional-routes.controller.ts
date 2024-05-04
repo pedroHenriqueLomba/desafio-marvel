@@ -2,7 +2,8 @@ import { CharacterFiltersDto } from "../dtos/characters/character-filter.dto";
 import CharacterService from "../services/character.service";
 import ComicService from "../services/comic.service";
 import CreatorService from "../services/creator.service";
-import { PaginateOptions } from "../util/paginate";
+import { Creator } from "../types/creator.type";
+import { Paginate, PaginateOptions } from "../util/paginate";
 import { RestError } from "../util/rest-error";
 
 export class AditionalRoutesController {
@@ -26,7 +27,7 @@ export class AditionalRoutesController {
       for (const creator of comic.creators) {
         creators.push(await this.creatorService.findByFullName(creator.name));
       }
-      res.status(200).send(creators);
+      res.status(200).send(new Paginate<Creator>(creators, creators.length, creators.length, 1));
     } catch (error: any) {
       const message = error.message ? error.message : "Error";
       const code = error.code ? error.code : 400;
